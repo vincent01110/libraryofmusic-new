@@ -1,7 +1,7 @@
+'use client';
 import { Avatar, AvatarGroup, Flex } from '@chakra-ui/react';
 
 const LoginButton = () => {
-
     return (
         <Flex>
             <AvatarGroup>
