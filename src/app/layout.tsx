@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Provider } from '@/components/ui/provider';
 import React from 'react';
+import { UserProvider } from '@/contexts/UserContext';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -25,9 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning={true}>
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
-                <Provider>{children}</Provider>
+                <Provider>
+                    <UserProvider>
+                        {children}
+                    </UserProvider>
+                </Provider>
             </body>
         </html>
     );
