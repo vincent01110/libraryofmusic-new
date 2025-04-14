@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     sassOptions: {
         additionalData: '$var: red;',
     },
+    reactStrictMode: false,
 };
 
 export default nextConfig;

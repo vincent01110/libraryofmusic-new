@@ -5,7 +5,12 @@ import { cookies } from 'next/headers';
 
 export async function getUserInfo(): Promise<API.V1.Response.User.UserInfo> {
     const response = await get<API.V1.Response.User.UserInfo>('/spotify/me');
-
+    (await cookies()).set('user_info', JSON.stringify(response), {
+        path: '/',
+        secure: true,
+        httpOnly: false,
+        maxAge: 172800000,
+    });
     return response;
 }
 

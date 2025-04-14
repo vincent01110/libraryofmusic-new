@@ -1,10 +1,9 @@
 'use client';
 
 import { API } from '@/interfaces/api';
-import { ChildrenProp } from '@/interfaces/props';
 import { getUserInfo } from '@/utils/api';
 import { isLoggedIn } from '@/utils/utils';
-import { createContext, useEffect, useState, Dispatch, SetStateAction, useContext } from 'react';
+import { createContext, useState, Dispatch, SetStateAction, useContext, ReactNode, useEffect } from 'react';
 
 interface UserContextType {
   user: API.V1.Response.User.UserInfo | null;
@@ -13,40 +12,33 @@ interface UserContextType {
   logout: () => void;
 }
 
+interface Props {
+    children: ReactNode;
+    initialUser?: API.V1.Response.User.UserInfo;
+}
+
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export function UserProvider({ children }: ChildrenProp) {
-    const [loginStatus, setLoginStatus] = useState<boolean>(false);
-    const [user, setUser] = useState<API.V1.Response.User.UserInfo | null>(null);
+export function UserProvider({ children, initialUser }: Props) {
+    const [user, setUser] = useState<API.V1.Response.User.UserInfo | null>(initialUser ?? null);
+    const [loginStatus, setLoginStatus] = useState<boolean>(!!user);
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            const storedUserData = localStorage.getItem('user_info');
-            const loggedIn = await isLoggedIn();
-            setLoginStatus(loggedIn);
-
-            if (loggedIn) {
-                if (storedUserData) {
-                    setUser(JSON.parse(storedUserData));
-                } else {
-                    const userInfo = await getUserInfo();
-                    setUser(userInfo);
-                    localStorage.setItem('user_info', JSON.stringify(userInfo));
-                }
-            } else {
-                localStorage.removeItem('user_info');
-                setUser(null);
+        const loadUser = async () => {
+            const s = await isLoggedIn();
+            setLoginStatus(s);
+            if (!user && s) {
+                const fetched = await getUserInfo();
+                setUser(fetched);
             }
         };
-
-        fetchUserData();
-    }, [loginStatus]);
+        loadUser();
+    });
 
     function logout() {
         setUser(null);
-        localStorage.removeItem('user_info');
-        setLoginStatus(false);
+        document.cookie = 'user_info=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     }
 
     return (

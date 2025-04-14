@@ -12,7 +12,7 @@ const Menu = async () => {
     return (
         <HStack className={style.bar}>
             <Flex className={style.container}>
-                <Link href=''>Home</Link>
+                <Link href='/'>Home</Link>
                 {isLoggedIn && 
                 <>
                     <Link href='/library'>Library</Link>
