@@ -10,19 +10,17 @@ const Menu = async () => {
     const isLoggedIn = await useIsLoggedIn();
 
     return (
-        <HStack className={style.bar}>
+        <HStack className={`${style.bar}  ${!isLoggedIn ? style.loggedIn : style.loggedOut}`} >
             <Flex className={style.container}>
-                <Link href='/'>Home</Link>
+                <Link className={style.link} href='/'>Home</Link>
                 {isLoggedIn && 
                 <>
-                    <Link href='/library'>Library</Link>
-                    <Link href=''>Albums</Link>
+                    <Link className={style.link} href='/library'>Library</Link>
+                    <Link className={style.link} href=''>Albums</Link>
                 </>
                 }
             </Flex>
-            <Flex className={style.button}>
-                <UserAvatar />
-            </Flex>
+            <UserAvatar />
         </HStack>
     );
 };

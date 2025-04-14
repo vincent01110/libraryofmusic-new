@@ -34,11 +34,12 @@ export function UserProvider({ children, initialUser }: Props) {
             }
         };
         loadUser();
-    });
+    }, [loginStatus]);
 
     function logout() {
         setUser(null);
         document.cookie = 'user_info=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        setLoginStatus(false);
     }
 
     return (
