@@ -1,0 +1,32 @@
+.bar {
+    // background-color: rgba(0, 0, 0, 0.027);
+    width: 30rem;
+    justify-content: center;
+    padding-bottom: 2px;
+    padding-inline: 10px;
+    border: none;
+    // -webkit-box-shadow: 0px 10px 20px -20px rgba(122, 122, 122, 1);
+    // -moz-box-shadow: 0px 10px 20px -20px rgba(122, 122, 122, 1);
+    // box-shadow: 0px 10px 20px -20px rgba(122, 122, 122, 1);
+
+    &.loggedIn {
+        justify-content: space-between;
+    }
+
+    &.loggedOut {
+        justify-content: space-around;
+    }
+
+    .container {
+        justify-self: flex-start;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        flex: 1;
+    }
+
+    .link:hover {
+        color: white;
+        text-shadow: 0px 1px 1px whitesmoke;
+    }
+}
