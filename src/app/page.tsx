@@ -1,4 +1,3 @@
-import Menu from '@/components/menu/Menu';
 import styles from './page.module.css';
 import Carousel from '@/components/home-page/carousel/Carousel';
 import { cookies } from 'next/headers';
@@ -13,9 +12,6 @@ export default async function Home() {
 
     return (
         <div className={styles.page}>
-            <header>
-                <Menu />
-            </header>
             <main className={styles.main}>
                 <Carousel />
                 <Description />
