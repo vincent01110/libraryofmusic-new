@@ -14,6 +14,12 @@ export async function getUserInfo(): Promise<API.V1.Response.User.UserInfo> {
     return response;
 }
 
+export async function getCarousel(): Promise<API.V1.Response.Carousel[]> {
+    const response = await get<API.V1.Response.Carousel[]>('/carousel');
+
+    return response;
+}
+
 
 async function get<T>(uri: string): Promise<T> {
     try {

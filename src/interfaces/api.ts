@@ -2,13 +2,22 @@
 export namespace API {
     export namespace V1 {
         export namespace Response {
-            export namespace User {
-                interface UserImage {
+            export interface Image {
                     url: string,
                     height: number,
                     width: number
-                }
+            }
 
+            export interface Artist {
+                href: string,
+                id: string,
+                name: string,
+                type: string,
+                uri: string,
+                external_urls: string[]
+            }
+
+            export namespace User {
                 export interface UserInfo {
                     country: string,
                     display_name: string,
@@ -26,14 +35,22 @@ export namespace API {
                     },
                     href: string,
                     id: string,
-                    images: UserImage[],
+                    images: Image[],
                     product: string,
                     type: string,
                     uri: string
 
                 }
+            }
 
+            export interface Carousel {
+                _id: string,
+                id: string,
+                images: Image[],
+                name: string,
+                artists: Artist[]
             }
         }
+
     }
 }

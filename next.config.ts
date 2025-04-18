@@ -9,6 +9,15 @@ const nextConfig: NextConfig = {
         additionalData: '$var: red;',
     },
     reactStrictMode: false,
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'i.scdn.co',
+                pathname: '/image/**',
+            },
+        ],
+    },
 };
 
 export default nextConfig;
