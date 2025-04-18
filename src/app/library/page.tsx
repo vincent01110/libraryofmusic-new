@@ -1,4 +1,4 @@
-import Menu from '@/components/home-page/menu/Menu';
+import Menu from '@/components/menu/Menu';
 
 export default function Home() {
     return (
