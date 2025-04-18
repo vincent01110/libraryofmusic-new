@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 40%;
+    flex-direction: column;
+    margin-bottom: 6rem;
+
+
+    .title {
+        font-size: 64px;
+        margin-bottom: 3rem;
+        background: -webkit-linear-gradient(#1DB954, #ffffff);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .desc {
+        font-size: large;
+        margin-bottom: 3rem;
+    }
+}

@@ -1,0 +1,15 @@
+.container {
+    width: 100%;
+    min-height: 25rem;
+    display: flex;
+    position: relative;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 3rem;
+
+    .albums {
+        flex-direction: row;
+        margin-top: 2rem;
+    }
+}
