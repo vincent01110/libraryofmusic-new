@@ -1,8 +1,9 @@
-import Menu from '@/components/home-page/menu/Menu';
+import Menu from '@/components/menu/Menu';
 import styles from './page.module.css';
 import Carousel from '@/components/home-page/carousel/Carousel';
 import { cookies } from 'next/headers';
 import RandomAlbums from '@/components/home-page/random-albums/RandomAlbums';
+import Description from '@/components/home-page/description/Description';
 
 export default async function Home() {
     const cookieStore = await cookies();
@@ -17,6 +18,7 @@ export default async function Home() {
             </header>
             <main className={styles.main}>
                 <Carousel />
+                <Description />
                 {user && <RandomAlbums />}
             </main>
         </div>
