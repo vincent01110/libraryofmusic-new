@@ -5,6 +5,8 @@ import { Provider } from '@/components/ui/provider';
 import React from 'react';
 import { UserProvider } from '@/contexts/UserContext';
 import { cookies } from 'next/headers';
+import { getCarousel } from '@/utils/api';
+import { CarouselProvider } from '@/contexts/CarouselContext';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,12 +34,16 @@ export default async function RootLayout({
     const userInfoCookie = cookieStore.get('user_info');
     const user = userInfoCookie ? JSON.parse(userInfoCookie.value) : null;
 
+    const initialAlbums = await getCarousel();
+
     return (
         <html lang="en" suppressHydrationWarning={true}>
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <Provider>
                     <UserProvider initialUser={user}>
-                        {children}
+                        <CarouselProvider initialAlbums={initialAlbums}>
+                            {children}
+                        </CarouselProvider>
                     </UserProvider>
                 </Provider>
             </body>
