@@ -20,6 +20,12 @@ export async function getCarousel(): Promise<API.V1.Response.Carousel[]> {
     return response;
 }
 
+export async function getRandomAlbums(): Promise<API.V1.Response.Spotify.Album[]> {
+    const response = await get<API.V1.Response.Spotify.Album[]>('/spotify/album/random?n=3');
+
+    return response;
+}
+
 
 async function get<T>(uri: string): Promise<T> {
     try {
