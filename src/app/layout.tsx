@@ -3,6 +3,13 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Provider } from '@/components/ui/provider';
 import React from 'react';
+import { UserProvider } from '@/contexts/UserContext';
+import { cookies } from 'next/headers';
+import { getCarousel } from '@/utils/api';
+import { CarouselProvider } from '@/contexts/CarouselContext';
+import Footer from '@/components/footer/Footer';
+
+export const dynamic = 'force-dynamic';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -27,7 +34,20 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
+<<<<<<< HEAD
                 <Provider>{children}</Provider>
+=======
+                <Provider>
+                    <UserProvider initialUser={user}>
+                        <CarouselProvider initialAlbums={initialAlbums}>
+                            {children}
+                            <footer>
+                                <Footer />
+                            </footer>
+                        </CarouselProvider>
+                    </UserProvider>
+                </Provider>
+>>>>>>> HomePage
             </body>
         </html>
     );
