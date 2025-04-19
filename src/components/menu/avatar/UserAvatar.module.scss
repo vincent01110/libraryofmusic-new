@@ -6,9 +6,24 @@
     background-color: white;
     color: black;
 
-    &:hover {
+    &:active:hover {
         color: white;
         background-color: #1DB954;
         transition-duration: 0.2s;
+    }
+}
+
+.popoverContainer {
+    padding: 3px 0px 3px 3px;
+    padding-bottom: 5px;
+    padding-top: 3px;
+    text-align: center;
+
+    .popoverBody {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
     }
 }

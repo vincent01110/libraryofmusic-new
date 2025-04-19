@@ -10,6 +10,8 @@ interface UserContextType {
   setUser: Dispatch<SetStateAction<API.V1.Response.User.UserInfo | null>>;
   loginStatus: boolean;
   logout: () => void;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 interface Props {
@@ -23,6 +25,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export function UserProvider({ children, initialUser }: Props) {
     const [user, setUser] = useState<API.V1.Response.User.UserInfo | null>(initialUser ?? null);
     const [loginStatus, setLoginStatus] = useState<boolean>(!!user);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const loadUser = async () => {
@@ -32,6 +35,7 @@ export function UserProvider({ children, initialUser }: Props) {
                 const fetched = await getUserInfo();
                 setUser(fetched);
             }
+            setIsLoading(false);
         };
         loadUser();
     }, [loginStatus]);
@@ -40,10 +44,11 @@ export function UserProvider({ children, initialUser }: Props) {
         setUser(null);
         document.cookie = 'user_info=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
         setLoginStatus(false);
+        setIsLoading(false);
     }
 
     return (
-        <UserContext.Provider value={{ user, setUser, loginStatus, logout }}>
+        <UserContext.Provider value={{ user, setUser, loginStatus, logout, isLoading, setIsLoading }}>
             {children}
         </UserContext.Provider>
     );
