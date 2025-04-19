@@ -15,7 +15,7 @@ const Menu = async () => {
                 {loggedIn && 
                 <>
                     <Link className={style.link} href='/library'>Library</Link>
-                    <Link className={style.link} href=''>Albums</Link>
+                    <Link className={style.link} href='/albums'>Albums</Link>
                 </>
                 }
             </Flex>
