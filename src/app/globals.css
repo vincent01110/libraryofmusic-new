@@ -53,3 +53,9 @@ a {
     color-scheme: dark;
   }
 }
+
+@media screen and (max-width: 600px) {
+  body {
+    padding-top: 20px;
+  }
+}

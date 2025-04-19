@@ -3,17 +3,16 @@ import Link from 'next/link';
 import React from 'react';
 import style from './Menu.module.scss';
 import UserAvatar from './avatar/UserAvatar';
-import { useIsLoggedIn } from '@/hooks/useIsLoggedIn';
+import { isLoggedIn } from '@/utils/utils';
 
 const Menu = async () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const isLoggedIn = await useIsLoggedIn();
+    const loggedIn = await isLoggedIn();
 
     return (
-        <HStack className={`${style.bar}  ${!isLoggedIn ? style.loggedIn : style.loggedOut}`} >
+        <HStack className={`${style.bar}  ${!loggedIn ? style.loggedIn : style.loggedOut}`} >
             <Flex className={style.container}>
                 <Link className={style.link} href='/'>Home</Link>
-                {isLoggedIn && 
+                {loggedIn && 
                 <>
                     <Link className={style.link} href='/library'>Library</Link>
                     <Link className={style.link} href=''>Albums</Link>

@@ -53,10 +53,17 @@
   }
 }
 
+@media screen and (max-height: 500px) {
+  .page {
+    padding: 0px;
+    padding-top: 0px;
+  }
+}
+
 @media (max-width: 600px) {
   .page {
     padding: 0px;
-    padding-top: 20px;
+    padding-top: 0px;
   }
 
   .main {

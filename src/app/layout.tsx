@@ -8,7 +8,6 @@ import { cookies } from 'next/headers';
 import { getCarousel } from '@/utils/api';
 import { CarouselProvider } from '@/contexts/CarouselContext';
 import Footer from '@/components/footer/Footer';
-import Menu from '@/components/menu/Menu';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,9 +43,6 @@ export default async function RootLayout({
                 <Provider>
                     <UserProvider initialUser={user}>
                         <CarouselProvider initialAlbums={initialAlbums}>
-                            <header>
-                                <Menu />
-                            </header>
                             {children}
                             <footer>
                                 <Footer />

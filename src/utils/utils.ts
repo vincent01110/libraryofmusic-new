@@ -10,4 +10,5 @@ export async function isLoggedIn(): Promise<boolean> {
 
 export async function logout() {
     (await cookies()).delete('API_TOKEN');
+    (await cookies()).delete('user_info');
 }

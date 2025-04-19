@@ -20,3 +20,14 @@
         margin-bottom: 3rem;
     }
 }
+
+@media screen and (max-width: 750px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 15px;
+
+        .title {
+            font-size: xx-large;
+        }
+    }
+}

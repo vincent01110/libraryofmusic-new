@@ -7,6 +7,8 @@ const RandomAlbumItem = lazy(() => import('./random-album-item/RandomAlbumItem')
 
 const RandomAlbums = async () => {
     const albums = await getRandomAlbums();
+
+    if (!albums) return <></>;
     
     return <Flex className={style.container}>
         <Text fontSize='3xl'>Your Next Listen:</Text>

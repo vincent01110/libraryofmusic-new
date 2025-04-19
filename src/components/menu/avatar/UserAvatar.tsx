@@ -12,6 +12,7 @@ const UserAvatar = () => {
 
     function login() {
         if (loginStatus) logout();
+        console.log('idk');
         router.push('/api/proxy-login');
     }
 

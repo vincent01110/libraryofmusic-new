@@ -31,16 +31,14 @@
     justify-self: flex-end;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
     .container {
         width: 15rem;
         height: 15rem;
-    }
-}
 
-@media screen and (max-width: 800px) {
-    .container {
-        width: 10rem;
-        height: 10rem;
+        .info {
+            width: 15rem;
+            height: 15rem;
+        }
     }
 }

@@ -32,7 +32,14 @@
     transition-delay: 0.1s;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-height: 500px) {
+    .holder {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
     .holder {
         width: 300px;
         height: 300px;
@@ -41,15 +48,15 @@
 
 @media screen and (max-width: 600px) {
     .holder {
-        width: 300px;
-        height: 300px;
+        width: 200px;
+        height: 200px;
     }
 
     .title {
-        font-size: medium;
+        font-size: small;
     }
 
     .artist {
-        font-size: small;
+        font-size: smaller;
     }
 }
