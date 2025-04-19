@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Flex, Icon } from '@chakra-ui/react';
+import { Button, Flex, Icon, Spinner } from '@chakra-ui/react';
 import AlbumsItem from './albums-item/AlbumsItem';
 import style from './Albums.module.scss';
 import { useAlbumsContext } from '@/contexts/AlbumsContext';
@@ -14,12 +14,15 @@ const Albums = () => {
             {albums && albums.map(a => <AlbumsItem key={a.album.id} album={a.album} />)}
         </Flex>
         <Flex className={style.buttonContainer}>
-            <Button variant='ghost' disabled={isLoading} className={style.moreButton} onClick={handleNext}>
+            {isLoading ? 
+                <Spinner />
+                :
+                <Button variant='ghost' disabled={isLoading} className={style.moreButton} onClick={handleNext}>
                 More
-                <Icon>
-                    <CiCircleMore />
-                </Icon>
-            </Button>
+                    <Icon>
+                        <CiCircleMore />
+                    </Icon>
+                </Button>}
         </Flex>
     </Flex>;
 };

@@ -41,6 +41,7 @@ export function AlbumsProvider({ children }: Props) {
 
     
     function handleNext() {
+        setIsLoading(true); 
         const newOffset = offset + 20;
         setOffset(newOffset);
         loadUserAlbums(newOffset);
