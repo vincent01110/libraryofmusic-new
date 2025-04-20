@@ -26,6 +26,12 @@ export async function getRandomAlbums(): Promise<API.V1.Response.Spotify.Album[]
     return response;
 }
 
+export async function getMyAlbums(limit: number = 20, offset: number): Promise<API.V1.Response.Spotify.UserAlbums> {
+    const response = await get<API.V1.Response.Spotify.UserAlbums>(`/spotify/me/albums?limit=${limit}&offset=${offset}`);
+    
+    return response;
+}
+
 
 async function get<T>(uri: string): Promise<T> {
     try {
@@ -36,6 +42,9 @@ async function get<T>(uri: string): Promise<T> {
                 'Authorization': `Bearer ${token}`
             },
         });
+        if (response.status === 401) {
+            return null as T;
+        };
 
         if (!response.ok) {
             throw new Error(`GET ${uri} failed with status ${response.status}`);

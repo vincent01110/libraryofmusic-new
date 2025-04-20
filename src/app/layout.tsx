@@ -8,6 +8,8 @@ import { cookies } from 'next/headers';
 import { getCarousel } from '@/utils/api';
 import { CarouselProvider } from '@/contexts/CarouselContext';
 import Footer from '@/components/footer/Footer';
+import { AlbumsProvider } from '@/contexts/AlbumsContext';
+import { isLoggedIn } from '@/utils/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,6 +36,7 @@ export default async function RootLayout({
     const cookieStore = await cookies();
     const userInfoCookie = cookieStore.get('user_info');
     const user = userInfoCookie ? JSON.parse(userInfoCookie.value) : null;
+    const loggedIn = await isLoggedIn();
 
     const initialAlbums = await getCarousel();
 
@@ -43,7 +46,14 @@ export default async function RootLayout({
                 <Provider>
                     <UserProvider initialUser={user}>
                         <CarouselProvider initialAlbums={initialAlbums}>
-                            {children}
+                            {
+                                loggedIn ? 
+                                    <AlbumsProvider>
+                                        {children}
+                                    </AlbumsProvider>
+                                    : 
+                                    children
+                            }
                             <footer>
                                 <Footer />
                             </footer>

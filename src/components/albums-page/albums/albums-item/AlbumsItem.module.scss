@@ -1,0 +1,112 @@
+.container {
+    position: relative;
+    display: flex;
+    height: 20rem;
+    width: 20rem;
+    margin-bottom: 4rem;
+    flex-direction: column;
+    box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.51);
+    cursor: pointer;
+}
+
+.image {
+    height: 20rem;
+    width: 20rem;
+}
+
+.info {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: white;
+    user-select: none;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .infoButton,
+    .addButton {
+        width: 75%;
+        height: 2rem;
+    }
+}
+
+.blur {
+    filter: blur(3px) brightness(50%);
+}
+
+.bottomInfo {
+    color: whitesmoke;
+    margin-top: 10px;
+    flex-direction: column;
+    max-width: 20rem;
+
+
+    .title,
+    .artist {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .artist {
+        color: lightgray;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 15rem;
+        height: 15rem;
+
+        .bottomInfo {
+            max-width: 15rem;
+
+            .title {
+                font-size: medium;
+            }
+
+            .artist {
+                font-size: smaller;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+        width: 10rem;
+        height: 10rem;
+        margin-bottom: 2.5rem;
+
+        .bottomInfo {
+            max-width: 10rem;
+
+            .title {
+                font-size: small;
+            }
+
+            .artist {
+                font-size: x-small;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .bottomInfo {
+        max-width: 10rem;
+
+        .title {
+            font-size: x-small;
+        }
+
+        .artist {
+            font-size: xx-small;
+        }
+    }
+}

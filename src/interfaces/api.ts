@@ -129,6 +129,20 @@ export namespace API {
                     popularity: number
                 }
 
+                export interface UserAlbum {
+                    added_at: string,
+                    album: Album;
+                }
+
+                export interface UserAlbums {
+                    href: string,
+                    limit: number,
+                    next: string,
+                    offset: number,
+                    previous: string,
+                    total: number,
+                    items: UserAlbum[],
+                }
             }
 
         }
