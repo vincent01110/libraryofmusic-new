@@ -14,9 +14,14 @@ const UserAvatar = () => {
     const router = useRouter();
 
     function login() {
-        if (loginStatus) logout();
         setIsLoading(true);
         router.push('/api/proxy-login');
+    }
+
+    function handleLogout() {
+        setIsLoading(true);
+        logout();
+        router.push('/api/logout');
     }
 
 
@@ -47,7 +52,7 @@ const UserAvatar = () => {
                                             </Icon>
                                         </a>
                                         <Separator size='sm' variant='solid' />
-                                        <Button variant='ghost' onClick={login}>
+                                        <Button variant='ghost' onClick={handleLogout}>
                                             Log Out
                                             <Icon><CiLogout/></Icon>
                                         </Button>
