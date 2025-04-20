@@ -42,6 +42,9 @@ async function get<T>(uri: string): Promise<T> {
                 'Authorization': `Bearer ${token}`
             },
         });
+        if (response.status === 401) {
+            return null as T;
+        };
 
         if (!response.ok) {
             throw new Error(`GET ${uri} failed with status ${response.status}`);

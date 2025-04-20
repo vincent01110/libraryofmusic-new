@@ -1,0 +1,63 @@
+.infoContent {
+    width: 100vw;
+    height: 50vh;
+    padding: 1rem;
+    overflow: auto;
+    flex-direction: row;
+
+    .header {
+        flex: 1;
+
+        .title {
+            font-size: x-large;
+        }
+    }
+
+    .cover {
+        width: 12rem;
+        height: 12rem;
+    }
+
+    .trackContainer {
+        margin-top: 1rem;
+        font-size: large;
+
+        .tracksTable {
+
+            .indexes,
+            .dashes,
+            .tracks {
+                padding-inline: 5px;
+            }
+
+            .indexes {
+                text-align: right;
+                color: lightgray;
+            }
+
+            .dashes {
+                text-align: center;
+            }
+
+            .tracks {
+                text-align: left;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .infoContent {
+        flex-direction: column;
+        height: 75vh;
+
+        .header {
+            flex: 0;
+        }
+
+        .cover {
+            width: 8rem;
+            height: 8rem;
+        }
+    }
+}

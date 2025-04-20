@@ -2,6 +2,7 @@
 
 import { API } from '@/interfaces/api';
 import { getMyAlbums } from '@/utils/api';
+import { useRouter } from 'next/navigation';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface AlbumsContextType {
@@ -21,6 +22,7 @@ export function AlbumsProvider({ children }: Props) {
     const [offset, setOffset] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [max, setMax] = useState<number>(-1);
+    const router = useRouter();
 
     useEffect(() => {
         if (albums.length < 1) {
@@ -33,6 +35,10 @@ export function AlbumsProvider({ children }: Props) {
     const loadUserAlbums = async (offset: number) => {
         if (max === -1 || max > offset) {
             const response = (await getMyAlbums(undefined, offset));
+            if (!response) {
+                router.push('/api/proxy-login');
+                return;
+            };
             setAlbums(prevState => [...prevState, ...response.items]);
             setIsLoading(false);
             if (max === -1) setMax(response.total);

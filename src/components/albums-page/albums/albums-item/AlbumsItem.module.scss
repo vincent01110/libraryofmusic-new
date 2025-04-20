@@ -9,17 +9,24 @@
     cursor: pointer;
 }
 
+.image {
+    height: 20rem;
+    width: 20rem;
+}
+
 .info {
     position: absolute;
     display: flex;
     flex-direction: column;
     text-align: center;
     width: 100%;
-    height: 20rem;
+    height: 100%;
     color: white;
     user-select: none;
     justify-content: space-between;
     align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 
     .infoButton,
     .addButton {
@@ -56,11 +63,6 @@
         width: 15rem;
         height: 15rem;
 
-        .info {
-            width: 15rem;
-            height: 15rem;
-        }
-
         .bottomInfo {
             max-width: 15rem;
 
@@ -80,11 +82,6 @@
         width: 10rem;
         height: 10rem;
         margin-bottom: 2.5rem;
-
-        .info {
-            width: 10rem;
-            height: 10rem;
-        }
 
         .bottomInfo {
             max-width: 10rem;
