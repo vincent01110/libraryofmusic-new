@@ -32,6 +32,12 @@ export async function getMyAlbums(limit: number = 20, offset: number): Promise<A
     return response;
 }
 
+export async function getShelves(): Promise<API.V1.Response.Shelves.Shelf[]> {
+    const response = await get<API.V1.Response.Shelves.Shelf[]>('/shelf');
+
+    return response;
+}
+
 
 async function get<T>(uri: string): Promise<T> {
     try {

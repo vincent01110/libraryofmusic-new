@@ -9,6 +9,5 @@ export function getArtistsName(artists: API.V1.Response.Artist[]): string {
         name = name.concat(`, ${artists[i].name}`);
     }
 
-    if(artists[0].name === 'Mizmor') console.log(name);
     return name;
 }

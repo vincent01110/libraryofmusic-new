@@ -10,6 +10,7 @@ import { CarouselProvider } from '@/contexts/CarouselContext';
 import Footer from '@/components/footer/Footer';
 import { AlbumsProvider } from '@/contexts/AlbumsContext';
 import { isLoggedIn } from '@/utils/utils';
+import { LibraryProvider } from '@/contexts/LibraryContext';
 
 export const dynamic = 'force-dynamic';
 
@@ -48,9 +49,11 @@ export default async function RootLayout({
                         <CarouselProvider initialAlbums={initialAlbums}>
                             {
                                 loggedIn ? 
-                                    <AlbumsProvider>
-                                        {children}
-                                    </AlbumsProvider>
+                                    <LibraryProvider>
+                                        <AlbumsProvider>
+                                            {children}
+                                        </AlbumsProvider>
+                                    </LibraryProvider>
                                     : 
                                     children
                             }

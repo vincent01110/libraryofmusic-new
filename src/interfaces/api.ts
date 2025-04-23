@@ -145,6 +145,18 @@ export namespace API {
                 }
             }
 
+            export namespace Shelves {
+                export interface Shelf {
+                    _id: string,
+                    user: string,
+                    name: string,
+                    color: string,
+                    items: Spotify.Album[],
+                    createdAt: string,
+                    __v: number
+                }
+            }
+
         }
     }
 }
