@@ -9,6 +9,7 @@ import { IoMdAddCircleOutline } from 'react-icons/io';
 import { CiCircleInfo } from 'react-icons/ci';
 import { getArtistsName } from '@/utils/client-utils';
 import InfoDialog from './info-dialog/InfoDialog';
+import AddToShelfDialog from './add-to-shelf-dialog/AddToShelfDialog';
 
 interface Prop {
     album: API.V1.Response.Spotify.Album;
@@ -49,10 +50,15 @@ function useButtonsAnimation(showButtons: boolean): AnimationScope {
 const AlbumsItem = ({album}: Prop) => {
     const [showButtons, setShowButtons] = useState<boolean>(false);
     const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
+    const [isAddToShelfOpen, setIsAddToShelfOpen] = useState<boolean>(false);
     const scope = useButtonsAnimation(showButtons);
 
     function toggleInfo() {
         setIsInfoOpen(prev => !prev);
+    }
+
+    function toggleAdd() {
+        setIsAddToShelfOpen(prev => !prev);
     }
     
     function toggleShow() {
@@ -71,7 +77,7 @@ const AlbumsItem = ({album}: Prop) => {
             />
 
             <motion.div data-info className={style.info} onClick={toggleShow}>
-                <Button className={style.addButton}>Add To Shelf<Icon><IoMdAddCircleOutline /></Icon></Button>
+                <Button className={style.addButton} onClick={toggleAdd}>Add To Shelf<Icon><IoMdAddCircleOutline /></Icon></Button>
                 <Button className={style.infoButton} onClick={toggleInfo}>Info<Icon><CiCircleInfo /></Icon></Button>
             </motion.div>
 
@@ -81,6 +87,7 @@ const AlbumsItem = ({album}: Prop) => {
             </Flex>
         </motion.div>
         <InfoDialog album={album} isInfoOpen={isInfoOpen} toggleInfo={toggleInfo} />
+        <AddToShelfDialog album={album} isAddToShelfOpen={isAddToShelfOpen} toggleAdd={toggleAdd} />
     </>);
 };
  

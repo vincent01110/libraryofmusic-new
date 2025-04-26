@@ -1,0 +1,88 @@
+.addContent {
+    width: 100vw;
+    height: 50vh;
+    padding: 1rem;
+    overflow: auto;
+    flex-direction: column;
+
+    .body {
+        width: 100%;
+        height: 100%;
+        display: grid;
+
+        .top {
+            width: 100%;
+            flex-direction: row;
+            gap: 1rem;
+
+            .album {
+                width: 50%;
+
+                .cover {
+                    width: 12rem;
+                    height: 12rem;
+                    margin-right: 10px;
+                }
+
+                .title {
+                    font-size: x-large;
+                }
+            }
+
+            .selectContainer {
+                width: 50%;
+            }
+        }
+
+        .bottom {
+            height: max-content;
+            justify-self: center;
+            align-self: flex-end;
+
+            .saveButton {
+                width: 10rem;
+                border-radius: 3rem;
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 750px) {
+    .addContent {
+        flex-direction: column;
+        height: 60vh;
+
+        .body {
+            width: 100%;
+            height: 100%;
+            display: grid;
+
+            .top {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+
+                .album {
+                    width: 100%;
+
+                    .cover {
+                        width: 8rem;
+                        height: 8rem;
+                    }
+                }
+
+                .selectContainer {
+                    width: 100%;
+                }
+            }
+
+            .bottom {
+                .saveButton {
+                    width: 10rem;
+                    border-radius: 3rem;
+                }
+            }
+        }
+    }
+}
