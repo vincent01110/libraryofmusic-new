@@ -38,6 +38,14 @@ export async function getShelves(): Promise<API.V1.Response.Shelves.Shelf[]> {
     return response;
 }
 
+export async function addAlbumToShelf(shelf: API.V1.Response.Shelves.Shelf, album: API.V1.Response.Spotify.Album) {
+    const updatedShelf: API.V1.Response.Shelves.Shelf = {...shelf, items: [...shelf.items, album]};
+
+    const response = await put<API.V1.Response.Shelves.Shelf>(`/shelf/${shelf._id}`, updatedShelf);
+
+    return response;
+}
+
 
 async function get<T>(uri: string): Promise<T> {
     try {
@@ -48,12 +56,40 @@ async function get<T>(uri: string): Promise<T> {
                 'Authorization': `Bearer ${token}`
             },
         });
+
         if (response.status === 401) {
             return null as T;
         };
 
         if (!response.ok) {
             throw new Error(`GET ${uri} failed with status ${response.status}`);
+        }
+
+        return await response.json() as T;
+    } catch (e: unknown) {
+        console.log(e);
+        return null as T;
+    }
+}
+
+async function put<T>(uri: string, data: T): Promise<T> {
+    try {
+        const token = (await cookies()).get('API_TOKEN')?.value;
+        const response = await fetch(`${process.env.API_URL}${uri}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.status === 401) {
+            return null as T;
+        };
+
+        if (!response.ok) {
+            throw new Error(`PUT ${uri} failed with status ${response.status}`);
         }
 
         return await response.json() as T;

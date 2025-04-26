@@ -1,13 +1,15 @@
 'use client';
 
 import { API } from '@/interfaces/api';
-import { getShelves } from '@/utils/api';
+import { addAlbumToShelf, getShelves } from '@/utils/api';
 import { useRouter } from 'next/navigation';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface LibraryContextType {
     shelves: API.V1.Response.Shelves.Shelf[] | null;
     isLoading: boolean;
+    // eslint-disable-next-line no-unused-vars
+    addToShelf: (shelf: API.V1.Response.Shelves.Shelf, album: API.V1.Response.Spotify.Album) => void;
 }
 
 interface Props {
@@ -36,9 +38,13 @@ export function LibraryProvider({ children }: Props) {
         setIsLoading(false);
     };
 
+    function addToShelf(shelf: API.V1.Response.Shelves.Shelf, album: API.V1.Response.Spotify.Album) {
+        addAlbumToShelf(shelf, album);
+    }
+
 
     return (
-        <LibraryContext.Provider value={{ shelves, isLoading }}>
+        <LibraryContext.Provider value={{ shelves, isLoading, addToShelf }}>
             { children }
         </LibraryContext.Provider>
     );
