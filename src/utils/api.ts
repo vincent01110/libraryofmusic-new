@@ -9,7 +9,7 @@ export async function getUserInfo(): Promise<API.V1.Response.User.UserInfo> {
         path: '/',
         secure: true,
         httpOnly: false,
-        maxAge: 172800000,
+        maxAge: 172800,
     });
     return response;
 }
@@ -38,10 +38,9 @@ export async function getShelves(): Promise<API.V1.Response.Shelves.Shelf[]> {
     return response;
 }
 
-export async function addAlbumToShelf(shelf: API.V1.Response.Shelves.Shelf, album: API.V1.Response.Spotify.Album) {
-    const updatedShelf: API.V1.Response.Shelves.Shelf = {...shelf, items: [...shelf.items, album]};
-
-    const response = await put<API.V1.Response.Shelves.Shelf>(`/shelf/${shelf._id}`, updatedShelf);
+export async function addAlbumToShelf(shelf: API.V1.Response.Shelves.Shelf, album: API.V1.Response.Shelves.ShelfItem) {
+    const response = await patch<API.V1.Response.Shelves.Shelf, API.V1.Response.Shelves.ShelfItem>(
+        `/shelf/${shelf._id}/add-album`, album);
 
     return response;
 }
@@ -98,3 +97,31 @@ async function put<T>(uri: string, data: T): Promise<T> {
         return null as T;
     }
 }
+
+async function patch<T, K>(uri: string, data: K): Promise<T> {
+    try {
+        const token = (await cookies()).get('API_TOKEN')?.value;
+        const response = await fetch(`${process.env.API_URL}${uri}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.status === 401) {
+            return null as T;
+        };
+
+        if (!response.ok) {
+            throw new Error(`PUT ${uri} failed with status ${response.status}`);
+        }
+
+        return await response.json() as T;
+    } catch (e: unknown) {
+        console.log(e);
+        return null as T;
+    }
+}
+

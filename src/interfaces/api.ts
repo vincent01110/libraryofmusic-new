@@ -146,12 +146,26 @@ export namespace API {
             }
 
             export namespace Shelves {
+                interface ShelfArtist {
+                    id: string,
+                    name: string,
+                    type: string,
+                    uri: string
+                }
+
+                export interface ShelfItem {
+                    id: string,
+                    name: string,
+                    images: Image[],
+                    artists: ShelfArtist[]
+                }
+
                 export interface Shelf {
                     _id: string,
                     user: string,
                     name: string,
                     color: string,
-                    items: Spotify.Album[],
+                    items: ShelfItem[],
                     createdAt: string,
                     __v: number
                 }

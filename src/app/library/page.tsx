@@ -14,7 +14,7 @@ export default async function LibraryPage() {
             <header>
                 <Menu/>
             </header>
-            <main>
+            <main className={style.main}>
                 <Library />
             </main>
         </div>

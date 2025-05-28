@@ -1,0 +1,14 @@
+.shelves {
+    width: 100%;
+    flex-wrap: wrap;
+
+    .shelfWrapper {
+        flex-direction: column;
+        margin-top: 10px;
+        text-indent: 10px;
+
+        .name {
+            color: gray;
+        }
+    }
+}

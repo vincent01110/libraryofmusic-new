@@ -1,0 +1,13 @@
+.library {
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    padding-inline: 3rem;
+    margin-top: 2rem;
+}
+
+@media screen and (max-width: 576px) {
+    .library {
+        padding-inline: 1rem;
+    }
+}

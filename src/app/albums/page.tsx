@@ -14,7 +14,7 @@ export default async function Home() {
             <header>
                 <Menu/>
             </header>
-            <main>
+            <main className={style.main}>
                 <Albums />
             </main>
         </div>
