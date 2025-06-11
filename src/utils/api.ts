@@ -45,6 +45,12 @@ export async function addAlbumToShelf(shelf: API.V1.Response.Shelves.Shelf, albu
     return response;
 }
 
+export async function createShelf(shelf: API.V1.Request.Shelf) {
+    const response = await post<API.V1.Request.Shelf>('/shelf', shelf);
+
+    return response;
+}
+
 
 async function get<T>(uri: string): Promise<T> {
     try {
@@ -71,11 +77,11 @@ async function get<T>(uri: string): Promise<T> {
     }
 }
 
-async function put<T>(uri: string, data: T): Promise<T> {
+async function post<T>(uri: string, data: T): Promise<T> {
     try {
         const token = (await cookies()).get('API_TOKEN')?.value;
         const response = await fetch(`${process.env.API_URL}${uri}`, {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -88,7 +94,7 @@ async function put<T>(uri: string, data: T): Promise<T> {
         };
 
         if (!response.ok) {
-            throw new Error(`PUT ${uri} failed with status ${response.status}`);
+            throw new Error(`POST ${uri} failed with status ${response.status}`);
         }
 
         return await response.json() as T;

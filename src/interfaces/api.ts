@@ -172,5 +172,12 @@ export namespace API {
             }
 
         }
+
+        export namespace Request {
+            export interface Shelf {
+                name: string,
+                color: string
+            }
+        }
     }
 }

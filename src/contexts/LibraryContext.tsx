@@ -10,6 +10,7 @@ interface LibraryContextType {
     isLoading: boolean;
     // eslint-disable-next-line no-unused-vars
     addToShelf: (shelf: API.V1.Response.Shelves.Shelf, album: API.V1.Response.Spotify.Album) => void;
+    loadShelves: () => void;
 }
 
 interface Props {
@@ -39,12 +40,16 @@ export function LibraryProvider({ children }: Props) {
     };
 
     function addToShelf(shelf: API.V1.Response.Shelves.Shelf, album: API.V1.Response.Spotify.Album) {
-        addAlbumToShelf(shelf, album);
+        addAlbumToShelf(shelf, album).then(data => {
+            if (data) {
+                loadShelves();
+            }
+        });
     }
 
 
     return (
-        <LibraryContext.Provider value={{ shelves, isLoading, addToShelf }}>
+        <LibraryContext.Provider value={{ shelves, isLoading, addToShelf, loadShelves }}>
             { children }
         </LibraryContext.Provider>
     );
