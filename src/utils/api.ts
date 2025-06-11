@@ -51,6 +51,12 @@ export async function createShelf(shelf: API.V1.Request.Shelf) {
     return response;
 }
 
+export async function deleteShelf(shelf: API.V1.Response.Shelves.Shelf) {
+    const response = await del<API.V1.Response.DeleteResponse>(`/shelf/${shelf._id}`);
+
+    return response;
+}
+
 
 async function get<T>(uri: string): Promise<T> {
     try {
@@ -122,6 +128,32 @@ async function patch<T, K>(uri: string, data: K): Promise<T> {
 
         if (!response.ok) {
             throw new Error(`PUT ${uri} failed with status ${response.status}`);
+        }
+
+        return await response.json() as T;
+    } catch (e: unknown) {
+        console.log(e);
+        return null as T;
+    }
+}
+
+async function del<T>(uri: string): Promise<T> {
+    try {
+        const token = (await cookies()).get('API_TOKEN')?.value;
+        const response = await fetch(`${process.env.API_URL}${uri}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (response.status === 401) {
+            return null as T;
+        };
+
+        if (!response.ok) {
+            throw new Error(`DELETE ${uri} failed with status ${response.status}`);
         }
 
         return await response.json() as T;

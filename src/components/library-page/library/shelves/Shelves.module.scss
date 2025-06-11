@@ -6,9 +6,39 @@
         flex-direction: column;
         margin-top: 10px;
         text-indent: 10px;
+        width: fit-content;
 
-        .name {
-            color: gray;
+        .headerContainer {
+            justify-content: space-between;
+            padding-right: 10px;
+            font-size: large;
+            gap: 0.5rem;
+
+            .icons {
+                justify-content: space-evenly;
+                gap: 5px;
+                color: transparent;
+                align-items: center;
+
+                .editIcon,
+                .deleteIcon {
+                    cursor: pointer;
+                }
+
+                .editIcon:hover {
+                    color: cyan;
+                }
+            }
+
+            .name {
+                color: gray;
+            }
+        }
+
+        &:hover {
+            .icons {
+                color: white;
+            }
         }
     }
 }

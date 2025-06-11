@@ -171,6 +171,10 @@ export namespace API {
                 }
             }
 
+            export interface DeleteResponse {
+                code: number,
+                message: string
+            }
         }
 
         export namespace Request {
