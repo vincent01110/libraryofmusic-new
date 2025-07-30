@@ -1,0 +1,41 @@
+.container {
+  cursor: grab;
+  width: 50rem;
+  height: 6rem;
+  margin-top: 1rem;
+
+  .cover {
+    padding: 1rem;
+    border: 1px solid green;
+    width: 6rem;
+    height: 6rem;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .info {
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+
+    .name,
+    .artist {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .name {
+      font-size: medium;
+    }
+
+    .artist {
+      font-size: larger;
+      color: gray;
+    }
+  }
+}
+
+.dragging {
+  cursor: grabbing;
+}
