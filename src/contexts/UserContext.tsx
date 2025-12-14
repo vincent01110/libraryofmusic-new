@@ -16,14 +16,13 @@ interface UserContextType {
 
 interface Props {
     children: ReactNode;
-    initialUser?: API.V1.Response.User.UserInfo;
 }
 
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export function UserProvider({ children, initialUser }: Props) {
-    const [user, setUser] = useState<API.V1.Response.User.UserInfo | null>(initialUser ?? null);
+export function UserProvider({ children }: Props) {
+    const [user, setUser] = useState<API.V1.Response.User.UserInfo | null>(null);
     const [loginStatus, setLoginStatus] = useState<boolean>(!!user);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -38,7 +37,7 @@ export function UserProvider({ children, initialUser }: Props) {
             setIsLoading(false);
         };
         loadUser();
-    }, [loginStatus]);
+    }, [loginStatus, user]);
 
     function logout() {
         setUser(null);

@@ -4,7 +4,6 @@ import './globals.css';
 import { Provider } from '@/components/ui/provider';
 import React from 'react';
 import { UserProvider } from '@/contexts/UserContext';
-import { cookies } from 'next/headers';
 import { getCarousel } from '@/utils/api';
 import { CarouselProvider } from '@/contexts/CarouselContext';
 import Footer from '@/components/footer/Footer';
@@ -34,9 +33,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const cookieStore = await cookies();
-    const userInfoCookie = cookieStore.get('user_info');
-    const user = userInfoCookie ? JSON.parse(userInfoCookie.value) : null;
     const loggedIn = await isLoggedIn();
 
     const initialAlbums = await getCarousel();
@@ -45,18 +41,13 @@ export default async function RootLayout({
         <html lang="en" suppressHydrationWarning={true}>
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <Provider>
-                    <UserProvider initialUser={user}>
+                    <UserProvider>
                         <CarouselProvider initialAlbums={initialAlbums}>
-                            {
-                                loggedIn ? 
-                                    <LibraryProvider>
-                                        <AlbumsProvider>
-                                            {children}
-                                        </AlbumsProvider>
-                                    </LibraryProvider>
-                                    : 
-                                    children
-                            }
+                            <LibraryProvider enabled={loggedIn}>
+                                <AlbumsProvider enabled={loggedIn}>
+                                    {children}
+                                </AlbumsProvider>
+                            </LibraryProvider>
                             <footer>
                                 <Footer />
                             </footer>

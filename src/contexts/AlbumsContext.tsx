@@ -3,7 +3,7 @@
 import { API } from '@/interfaces/api';
 import { getMyAlbums } from '@/utils/api';
 import { useRouter } from 'next/navigation';
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 
 interface AlbumsContextType {
     albums: API.V1.Response.Spotify.UserAlbum[] | null;
@@ -13,26 +13,19 @@ interface AlbumsContextType {
 
 interface Props {
     children: ReactNode;
+    enabled: boolean;
 }
 
 const AlbumsContext = createContext<AlbumsContextType | undefined>(undefined);
 
-export function AlbumsProvider({ children }: Props) {
+export function AlbumsProvider({ children, enabled }: Props) {
     const [albums, setAlbums] = useState<API.V1.Response.Spotify.UserAlbum[]>([]);
     const [offset, setOffset] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [max, setMax] = useState<number>(-1);
     const router = useRouter();
 
-    useEffect(() => {
-        if (albums.length < 1) {
-            setIsLoading(true);
-            setOffset(0);
-            loadUserAlbums(offset);
-        }
-    }, [offset]);
-
-    const loadUserAlbums = async (offset: number) => {
+    const loadUserAlbums = useCallback(async (offset: number) => {
         if (max === -1 || max > offset) {
             const response = (await getMyAlbums(undefined, offset));
             if (!response) {
@@ -43,8 +36,15 @@ export function AlbumsProvider({ children }: Props) {
             setIsLoading(false);
             if (max === -1) setMax(response.total);
         }
-    };
+    }, [max, router]);
 
+    useEffect(() => {
+        if (enabled && albums.length < 1) {
+            setIsLoading(true);
+            setOffset(0);
+            loadUserAlbums(0);
+        }
+    }, [enabled, albums.length, loadUserAlbums]);
     
     function handleNext() {
         setIsLoading(true); 
@@ -52,6 +52,10 @@ export function AlbumsProvider({ children }: Props) {
         setOffset(newOffset);
         loadUserAlbums(newOffset);
     };
+
+    if (!enabled) {
+        return <>{ children }</>;
+    }
 
 
     return (

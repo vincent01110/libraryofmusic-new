@@ -3,7 +3,7 @@
 import { API } from '@/interfaces/api';
 import { addAlbumToShelf, getShelves } from '@/utils/api';
 import { useRouter } from 'next/navigation';
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 
 interface LibraryContextType {
     shelves: API.V1.Response.Shelves.Shelf[] | null;
@@ -15,29 +15,26 @@ interface LibraryContextType {
 
 interface Props {
     children: ReactNode;
+    enabled: boolean;
 }
 
 const LibraryContext = createContext<LibraryContextType | undefined>(undefined);
 
-export function LibraryProvider({ children }: Props) {
+export function LibraryProvider({ children, enabled }: Props) {
     const [shelves, setShelves] = useState<API.V1.Response.Shelves.Shelf[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
-    useEffect(() => {
-        setIsLoading(true);
-        loadShelves();
-    }, []);
-
-    async function loadShelves() {
-        const response = (await getShelves());
-        if (!response) {
-            router.push('/api/proxy-login');
-            return;
-        };
-        setShelves(response);
-        setIsLoading(false);
-    };
+    const loadShelves = useCallback(
+        async () => {
+            const response = (await getShelves());
+            if (!response) {
+                router.push('/api/proxy-login');
+                return;
+            };
+            setShelves(response);
+            setIsLoading(false);
+        }, [router]);
 
     function addToShelf(shelf: API.V1.Response.Shelves.Shelf, album: API.V1.Response.Spotify.Album) {
         addAlbumToShelf(shelf, album).then(data => {
@@ -45,6 +42,17 @@ export function LibraryProvider({ children }: Props) {
                 loadShelves();
             }
         });
+    }
+
+    useEffect(() => {
+        if (enabled) {
+            setIsLoading(true);
+            loadShelves();
+        }
+    }, [enabled, loadShelves]);
+
+    if (!enabled) {
+        return <>{ children }</>;
     }
 
 
